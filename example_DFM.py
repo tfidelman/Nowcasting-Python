@@ -1,9 +1,11 @@
 #-------------------------------------------------Libraries
+#%%
 import os
 from datetime import datetime as dt
 from Functions.load_spec import load_spec
 from Functions.load_data import load_data
 from Functions.dfm import dfm
+from Functions.remNaNs_spline import remNaNs_spline
 import pickle
 from Functions.summarize import summarize
 import pandas as pd
@@ -11,13 +13,13 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import numpy as np
 
-
+#%%
 #-------------------------------------------------Set dataframe to full view
 pd.set_option('display.expand_frame_repr', False)
 
 
 #-------------------------------------------------User Inputs
-vintage      = '2016-06-29'                                                   # vintage dataset to use for estimation
+vintage      = '2024-10-08'                                                   # vintage dataset to use for estimation
 country      = 'US'                                                           # United States macroeconomic data
 sample_start = dt.strptime("2000-01-01", '%Y-%m-%d').date().toordinal() + 366 # estimation sample
 
@@ -33,7 +35,7 @@ Units            = Spec.Units
 UnitsTransformed = Spec.UnitsTransformed
 
 # Load data
-datafile   = os.path.join('data',country,vintage + '.xls')
+datafile   = os.path.join('data',country,vintage + '.xlsx')
 X,Time,Z   = load_data(datafile,Spec,sample_start)
 
 # Summarize dataset
@@ -156,3 +158,4 @@ for i in range(len(series)):
 fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)'} ,
                   title_text="Projection of Common Factor")
 fig.show()
+# %%

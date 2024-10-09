@@ -81,11 +81,12 @@ def update_nowcast(X_old,X_new,Time,Spec,Res,series,period,vintage_old,vintage_n
 
     # Display output
     y_rev,y_new,_,actual,forecast,weight,_,_,_ = News_DFM(X_rev,X_new,Res,t_nowcast,i_series)
+    
+    #  convert to integer value
+    t_nowcast = t_nowcast.item()
 
     print("\n Nowcast Update: {}".format(dt.fromordinal(vintage_new-366).isoformat().split('T')[0]))
-    print("\n Nowcast for: {} ({}), {}".format(Spec.SeriesName[i_series][0],
-                                               Spec.UnitsTransformed[i_series][0],
-                                               pd.to_datetime(dt.fromordinal(Time[t_nowcast]-366)).to_period('Q')))
+    print("\n Nowcast for: {} ({}), {}".format(Spec.SeriesName[i_series][0], Spec.UnitsTransformed[i_series][0], pd.to_datetime(dt.fromordinal(Time[t_nowcast]-366)).to_period('Q')))
 
     # Only display table output if a forecast is made
     if forecast.shape[0] == 0:
@@ -429,3 +430,4 @@ def para_const(X,P,lag):
     }
 
     return Res
+# %%
